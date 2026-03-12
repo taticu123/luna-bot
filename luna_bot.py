@@ -345,8 +345,8 @@ o *ayuda* para ver todas las opciones 💜"""
 # WEBHOOK
 # ============================================================
 
-@app.route("/webhook", methods=["POST"])
-def webhook():
+@app.route("/whatsapp", methods=['POST'])
+def whatsapp_webhook():
     incoming_msg = request.values.get("Body", "").strip()
     phone = request.values.get("From", "")
     
