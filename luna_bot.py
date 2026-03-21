@@ -6,199 +6,196 @@ import random
 
 app = Flask(__name__)
 
-# Base de datos en memoria
 users = {}
 
 # ============================================================
-# HUMOR — automático, no por menú
+# ЮМОР
 # ============================================================
 
 humor = {
-    "menstruacion": [
-        "El gimnasio de hoy es llegar al refrigerador y volver. Cuenta. 🛋️",
-        "Si hoy quieres cancelar todo — quizás no es pereza. Es sabiduría.",
-        "Hoy tu superpoder es no hacer nada sin culpa.",
-        "Vela + té + cobija = programa completo de desarrollo personal.",
-        "Si alguien te molesta hoy — imagínate que eres un oso hibernando. 🐻",
-        "Hoy el mundo puede esperar. Tú no tienes que.",
+    "menstruация": [
+        "Спортзал сегодня — дойти до холодильника и вернуться. Считается. 🛋️",
+        "Если хочется отменить всё — возможно это не лень. Это мудрость.",
+        "Сегодня твой суперсилой является ничего не делать без чувства вины.",
+        "Свеча + чай + плед = полноценная программа личностного роста.",
+        "Если кто-то раздражает — представь что ты медведь на зимовке. 🐻",
+        "Сегодня мир может подождать. Ты не обязана.",
     ],
-    "folicular": [
-        "El cerebro volvió. Como una computadora después de actualizar. 💻",
-        "Hoy las ideas llegan solas. Algunas serán brillantes. Otras, solo tuyas.",
-        "El humor hoy es como el de alguien que encontró el cargador del teléfono. 🔋",
-        "Hoy es buen día para empezar algo. O al menos para abrir una lista nueva.",
-        "El mundo vuelve a verse como un lugar donde se puede inventar algo.",
+    "фолликулярная": [
+        "Мозг включился. Как компьютер после обновления. 💻",
+        "Сегодня идеи приходят сами. Некоторые будут гениальными. Некоторые — просто твоими.",
+        "Настроение как у человека который нашёл зарядку от телефона. 🔋",
+        "Хороший день чтобы начать что-то. Или хотя бы открыть новый список дел.",
+        "Мир снова выглядит как место где можно что-то придумать.",
     ],
-    "ovulacion": [
-        "Hoy la gente de repente parece más agradable. No es tu imaginación. Son las hormonas. ✨",
-        "Si hoy quieres vestirte bonito — escúchate. Tu cuerpo sabe.",
-        "Hoy la carisma funciona sin esfuerzo. Aprovéchalo.",
-        "Hoy hay posibilidades de sentirte como la protagonista. Porque lo eres. 🎬",
-        "Si hoy quieres coquetear con la vida — es simplemente tu verano. ☀️",
+    "овуляция": [
+        "Люди сегодня кажутся приятнее обычного. Это не твоя фантазия. Это гормоны. ✨",
+        "Если хочется красиво одеться — слушай себя. Тело знает.",
+        "Сегодня харизма работает без усилий. Используй.",
+        "Сегодня есть шанс почувствовать себя главной героиней. Потому что ты и есть. 🎬",
+        "Если хочется флиртовать с жизнью — это просто твоё лето. ☀️",
     ],
-    "lutea": [
-        "Hoy el cerebro nota todo: el vaso sucio, la vieja conversación y la imperfección del universo. 🍂",
-        "Si hoy la paciencia se acaba rápido — son las hormonas probando los límites. No tú.",
-        "Hoy puede llegar el deseo de orden, chocolate y soledad. Todo al mismo tiempo.",
-        "Si hoy quieres reorganizar tu vida — empieza por el cajón de la cocina.",
-        "Si hoy quieres cancelar a media humanidad — es parte normal de la revisión otoñal.",
-        "Hoy el alma dice: vamos a ser honestas. 🌙",
-        "Si el humor cambia más rápido que el clima — es solo el viento lúteo.",
+    "лютеиновая": [
+        "Сегодня мозг замечает всё: грязную кружку, старый разговор и несовершенство вселенной. 🍂",
+        "Если терпение заканчивается быстро — это гормоны проверяют границы. Не ты.",
+        "Сегодня может захотеться порядка, шоколада и одиночества. Всё одновременно.",
+        "Если хочется навести порядок в жизни — начни с ящика на кухне.",
+        "Если хочется отменить половину человечества — это нормальная часть осенней ревизии.",
+        "Сегодня душа говорит: давай честно. 🌙",
+        "Если настроение меняется быстрее чем погода — это просто лютеиновый ветер.",
     ]
 }
 
 wisdom = [
-    "La energía femenina no tiene que ser igual todos los días. La ciclicidad no es debilidad — es navegación.",
-    "No todas las emociones son verdad. Algunas son solo hormonas. Y eso también está bien.",
-    "Durante la ovulación las mujeres toman decisiones más valientes. No es coincidencia.",
-    "El ciclo no es un problema a resolver. Es un mapa para vivir.",
-    "Tu cuerpo no está roto. Está cíclico. Hay diferencia.",
-    "Descansar en invierno no es perder el tiempo. Es prepararse para la primavera.",
-    "La intuición habla más fuerte en los días de menstruación. Vale la pena escucharla.",
-    "Cada fase tiene su inteligencia. Ninguna es mejor que otra.",
-    "El ciclo te enseña que no tienes que ser la misma todos los días para ser suficiente.",
-    "Tu sensibilidad no es un defecto. Es información.",
+    "Женская энергия не должна быть одинаковой каждый день. Цикличность — это не слабость, это навигация.",
+    "Не все эмоции — правда. Некоторые — просто гормоны. И это тоже нормально.",
+    "В овуляцию женщины принимают более смелые решения. Не случайно.",
+    "Цикл — не проблема для решения. Это карта для жизни.",
+    "Твоё тело не сломано. Оно цикличное. Разница есть.",
+    "Отдыхать зимой — это не терять время. Это готовиться к весне.",
+    "Интуиция говорит громче всего в дни менструации. Стоит слушать.",
+    "У каждой фазы своя мудрость. Ни одна не лучше другой.",
+    "Цикл учит тебя что не нужно быть одинаковой каждый день чтобы быть достаточной.",
+    "Твоя чувствительность — не дефект. Это информация.",
 ]
 
 # ============================================================
-# FASES
+# ФАЗЫ
 # ============================================================
 
 phases = [
     {
-        "key": "menstruacion",
-        "name": "Menstruación",
-        "season": "Invierno interior",
+        "key": "менструация",
+        "name": "Менструация",
+        "season": "Внутренняя зима",
         "emoji": "🌑",
         "days": (1, 5),
 
-        # Mensaje de mañana — 3 partes separadas
         "morning_1": [
-            "Día {day} 🌑 Tu invierno interior.\nHoy el cuerpo hace trabajo sagrado. No tienes que demostrar nada.",
-            "Día {day} 🌑 Estás en tu invierno.\nDescansa sin culpa. El descanso de hoy es productivo.",
-            "Día {day} 🌑 Invierno interior.\nHoy el cuerpo manda. Escúchalo — no es debilidad, es inteligencia.",
+            "День {day} 🌑 Внутренняя зима.\nСегодня тело делает священную работу. Тебе не нужно ничего доказывать.",
+            "День {day} 🌑 Твоя зима.\nОтдыхай без вины. Сегодняшний отдых — это продуктивность.",
+            "День {day} 🌑 Внутренняя зима.\nСегодня тело главное. Слушай его — это не слабость, это интеллект.",
         ],
         "morning_3": [
-            "Me permito descansar. Mi cuerpo hace un trabajo extraordinario y sagrado. 💜",
-            "Estoy completa, incluso en silencio. Incluso en reposo. 💜",
-            "No necesito hacer nada hoy para merecer descanso. Ya lo merezco. 💜",
+            "Я позволяю себе отдыхать. Моё тело делает невероятную и священную работу. 💜",
+            "Я цельная даже в тишине. Даже в покое. 💜",
+            "Мне не нужно ничего делать сегодня чтобы заслужить отдых. Я уже его заслуживаю. 💜",
         ],
 
-        # Bloques de contenido
-        "cuerpo": "Cuerpo hoy 🌑\n\nTu útero trabaja. El sistema nervioso pide quietud. Esto es inteligencia biológica — no debilidad.\n\nNormal sentir:\n🌊 Emociones sin filtros\n🔮 Intuición más fuerte\n🕯️ Ganas de estar sola\n💫 Revelaciones en silencio\n\n_Pongo la mano en el vientre. No necesito hacer nada ahora mismo. Estoy segura._",
+        "cuerpo": "Тело сегодня 🌑\n\nМатка работает. Нервная система просит покоя. Это биологический интеллект — не слабость.\n\nНормально чувствовать:\n🌊 Эмоции без фильтров\n🔮 Интуиция громче обычного\n🕯️ Желание побыть одной\n💫 Откровения в тишине\n\n_Кладу руку на живот. Мне не нужно ничего делать прямо сейчас. Я в безопасности._",
 
-        "trabajo": "Trabajo hoy 🌑\n\nEvita decisiones importantes.\nSi algo parece catástrofe — escríbelo y vuelve en 5 días.\nProbablemente no es una catástrofe.\n\n⚠️ Lo que sientes sobre ti misma en estos días no es la verdad completa.",
+        "trabajo": "Работа сегодня 🌑\n\nИзбегай важных решений.\nЕсли что-то кажется катастрофой — запиши и вернись через 5 дней.\nСкорее всего это не катастрофа.\n\n⚠️ То что ты думаешь о себе в эти дни — не вся правда.",
 
-        "relaciones": "Relaciones hoy 🌑\n\nNo te expliques demasiado.\nSolo di 'necesito estar sola' — eso no es egoísmo.\n\nEvita conversaciones difíciles estos días.\nSi algo te molestó — escríbelo. Habla después.",
+        "relaciones": "Отношения сегодня 🌑\n\nНе объясняй себя слишком много.\nПросто скажи 'мне нужно побыть одной' — это не эгоизм.\n\nИзбегай сложных разговоров в эти дни.\nЕсли что-то задело — запиши. Поговори потом.",
 
-        "ritual": "Noche hoy 🌑\n\nAcuéstate temprano.\nBaño caliente, vela, silencio.\nNada de pantallas antes de dormir.\n\n🌿 Come: chocolate negro, lentejas, té de jengibre, remolacha\n💪 Muévete: yoga suave, caminata tranquila",
+        "ritual": "Вечер сегодня 🌑\n\nЛожись раньше обычного.\nТёплая ванна, свеча, тишина.\nНикаких экранов перед сном.\n\n🌿 Питание: горький шоколад, чечевица, имбирный чай, свёкла\n💪 Движение: мягкая йога, спокойная прогулка",
 
-        "autoestima": "Autoestima hoy 🌑\n\nPuede sentirse más baja ahora.\nEso es hormonal — no real.\n\nLo que piensas sobre ti misma en estos días no es la verdad completa.\nEspera unos días. La perspectiva regresa.",
+        "autoestima": "Самооценка сегодня 🌑\n\nМожет ощущаться ниже обычного.\nЭто гормональное — не реальное.\n\nТо что ты думаешь о себе в эти дни — не вся правда.\nПодожди несколько дней. Перспектива вернётся.",
 
-        "warning": "⚠️ Si ahora sientes que todo está mal y quieres cambiarlo todo — espera 5 días. No es la realidad. Son las hormonas.",
+        "warning": "⚠️ Если сейчас кажется что всё плохо и хочется всё менять — подожди 5 дней. Это не реальность. Это гормоны.",
 
-        "response_emotional": "Te escucho 🫀\n\nEstás en tu invierno interior 🌑 Día {day}.\n\nLas lágrimas, el cansancio, querer estar sola — todo es biología, no debilidad.\n\nNo estás rota. Estás completa.\n\n⚠️ Si sientes que todo está mal — espera 5 días. No es la realidad.",
+        "response_emotional": "Слышу тебя 🫀\n\nТы в своей внутренней зиме 🌑 День {day}.\n\nСлёзы, усталость, желание побыть одной — всё это биология, не слабость.\n\nТы не сломана. Ты цельная.\n\n⚠️ Если кажется что всё плохо — подожди 5 дней. Это не реальность.",
     },
     {
-        "key": "folicular",
-        "name": "Folicular",
-        "season": "Primavera interior",
+        "key": "фолликулярная",
+        "name": "Фолликулярная",
+        "season": "Внутренняя весна",
         "emoji": "🌱",
         "days": (6, 13),
 
         "morning_1": [
-            "Día {day} 🌱 Tu primavera interior.\nLa energía despierta. Las ideas llegan. Es tu momento.",
-            "Día {day} 🌱 Primavera interior.\nEl cerebro está encendido. Buen momento para empezar algo nuevo.",
-            "Día {day} 🌱 Tu energía regresa.\nAprovecha este impulso — dura unos días.",
+            "День {day} 🌱 Внутренняя весна.\nЭнергия просыпается. Идеи приходят. Твой момент.",
+            "День {day} 🌱 Весна внутри.\nМозг включён. Хороший момент начать что-то новое.",
+            "День {day} 🌱 Твоя энергия возвращается.\nИспользуй этот импульс — он продлится несколько дней.",
         ],
         "morning_3": [
-            "Soy nueva cada día. Mi energía florece con cada paso. 💜",
-            "Estoy abierta a lo nuevo. Confío en mi energía. 💜",
-            "Lo que quiero crear ya está en mí. Solo necesito empezar. 💜",
+            "Я обновляюсь каждый день. Моя энергия расцветает с каждым шагом. 💜",
+            "Я открыта новому. Доверяю своей энергии. 💜",
+            "То что я хочу создать — уже во мне. Нужно только начать. 💜",
         ],
 
-        "cuerpo": "Cuerpo hoy 🌱\n\nEl estrógeno sube — y con él tu energía y claridad mental.\nMás ganas de empezar cosas. El cuerpo se siente más ligero.\n\nNormal sentir:\n🌸 Optimismo sin razón aparente\n💡 Ideas que llegan solas\n🤸 Ganas de conectar y explorar\n🌟 Confianza que regresa\n\n_Siento cómo algo en mí despierta. Confío en mi energía._",
+        "cuerpo": "Тело сегодня 🌱\n\nЭстроген растёт — и вместе с ним энергия и ясность мышления.\nБольше желания начинать новое. Тело ощущается легче.\n\nНормально чувствовать:\n🌸 Оптимизм без видимых причин\n💡 Идеи которые приходят сами\n🤸 Желание общаться и исследовать\n🌟 Уверенность которая возвращается\n\n_Чувствую как что-то во мне просыпается. Доверяю своей энергии._",
 
-        "trabajo": "Trabajo hoy 🌱\n\nEmpieza proyectos nuevos ahora.\nPitches, negociaciones, primeros pasos — todo aquí.\nTu cerebro analítico está en su punto más alto.\n\n⚠️ Puedes querer hacer demasiado. Anota las ideas pero no te comprometas con todo.",
+        "trabajo": "Работа сегодня 🌱\n\nНачинай новые проекты именно сейчас.\nПитчи, переговоры, первые шаги — всё сюда.\nТвой аналитический мозг на пике.\n\n⚠️ Можешь захотеть взяться за всё сразу. Записывай идеи но не обязуйся под всё.",
 
-        "relaciones": "Relaciones hoy 🌱\n\nMomento ideal para conversaciones honestas.\nEstás más abierta y menos reactiva.\n\nReconecta con personas que no ves hace tiempo.\nBuen momento para decir lo que tienes pendiente.",
+        "relaciones": "Отношения сегодня 🌱\n\nИдеальный момент для честных разговоров.\nТы более открытая и менее реактивная.\n\nВосстанови связь с людьми которых давно не видела.\nХороший момент сказать то что давно хотела.",
 
-        "ritual": "Noche hoy 🌱\n\nPuedes acostarte un poco más tarde esta semana.\n10 minutos sin teléfono por la mañana — las mejores ideas llegan en silencio.\n\n🌿 Come: huevos, brócoli, aguacate, semillas de lino\n💪 Muévete: HIIT, pilates, pesas ligeras",
+        "ritual": "Вечер сегодня 🌱\n\nМожешь ложиться немного позже на этой неделе.\n10 минут без телефона утром — лучшие идеи приходят в тишине.\n\n🌿 Питание: яйца, брокколи, авокадо, семена льна\n💪 Движение: HIIT, пилатес, лёгкие веса",
 
-        "autoestima": "Autoestima hoy 🌱\n\nLa confianza regresa de forma natural ahora.\n\nEs buen momento para hacer cosas que antes parecían difíciles.\nTu voz merece espacio.",
+        "autoestima": "Самооценка сегодня 🌱\n\nУверенность возвращается естественно.\n\nХороший момент делать то что раньше казалось сложным.\nТвой голос заслуживает пространства.",
 
-        "warning": "⚠️ Puedes querer hacer demasiado — todo parece posible. Anota las ideas pero no te comprometas con todo de una vez.",
+        "warning": "⚠️ Можешь захотеть сделать слишком много — всё кажется возможным. Записывай идеи но не берись за всё сразу.",
 
-        "response_emotional": "Tiene sentido lo que sientes 🌱\n\nEstás en tu primavera interior. Día {day}.\n\nTu energía está creciendo — y con ella la claridad, las ganas, el optimismo.\n\nEs tu momento de plantar semillas 🌸",
+        "response_emotional": "Это понятно 🌱\n\nТы в своей внутренней весне. День {day}.\n\nЭнергия растёт — и вместе с ней ясность, желания, оптимизм.\n\nТвой момент сеять семена 🌸",
     },
     {
-        "key": "ovulacion",
-        "name": "Ovulación",
-        "season": "Verano interior",
+        "key": "овуляция",
+        "name": "Овуляция",
+        "season": "Внутреннее лето",
         "emoji": "☀️",
         "days": (14, 16),
 
         "morning_1": [
-            "Día {day} ☀️ Tu verano interior.\nHoy brillas. Sin esfuerzo. Úsalo.",
-            "Día {day} ☀️ Verano interior.\nPico de energía y carisma. Hoy es día de aparecer.",
-            "Día {day} ☀️ Eres magnética hoy.\nLa biología trabaja para ti. Aprovéchalo.",
+            "День {day} ☀️ Внутреннее лето.\nСегодня ты сияешь. Без усилий. Используй.",
+            "День {day} ☀️ Лето внутри.\nПик энергии и харизмы. Сегодня день чтобы появиться.",
+            "День {day} ☀️ Ты магнетична сегодня.\nБиология работает на тебя. Используй это.",
         ],
         "morning_3": [
-            "Irradio luz. Mi presencia transforma todo lo que toco. 💜",
-            "Me permito brillar. Mi presencia es un regalo. 💜",
-            "Soy la protagonista de mi historia. Hoy más que nunca. 💜",
+            "Я излучаю свет. Моё присутствие меняет всё чего я касаюсь. 💜",
+            "Я позволяю себе сиять. Моё присутствие — это подарок. 💜",
+            "Я главная героиня своей истории. Сегодня особенно. 💜",
         ],
 
-        "cuerpo": "Cuerpo hoy ☀️\n\nPico de estrógeno y testosterona.\nEres más carismática, comunicativa y presente.\nLa biología te pone en el centro del mundo.\n\nNormal sentir:\n✨ Sentirte vista y deseada\n🔥 Creatividad y deseo en máximos\n💛 Ganas de dar y compartir\n👑 Presencia que ocupa espacio\n\n_Me permito brillar. Mi presencia es un regalo._",
+        "cuerpo": "Тело сегодня ☀️\n\nПик эстрогена и тестостерона.\nТы более харизматична, коммуникабельна и присутствующая.\nБиология ставит тебя в центр мира.\n\nНормально чувствовать:\n✨ Ощущение что тебя видят и замечают\n🔥 Творчество и желания на максимуме\n💛 Желание давать и делиться\n👑 Присутствие которое занимает пространство\n\n_Позволяю себе сиять. Моё присутствие — это подарок._",
 
-        "trabajo": "Trabajo hoy ☀️\n\nFirma contratos.\nHaz presentaciones.\nGraba videos. Haz lives.\n\nEstás literalmente brillando — la gente lo siente.\nHoy es el día.\n\n⚠️ Puedes dar demasiado de ti misma. Guarda algo para ti.",
+        "trabajo": "Работа сегодня ☀️\n\nПодписывай контракты.\nДелай презентации.\nСнимай видео. Выходи в эфир.\n\nТы буквально светишься — люди это чувствуют.\nСегодня тот самый день.\n\n⚠️ Можешь отдать слишком много себя. Оставь что-то для себя.",
 
-        "relaciones": "Relaciones hoy ☀️\n\nEl mejor momento para la intimidad.\nPara pedir algo importante.\nPara conversaciones difíciles — eres más convincente ahora.\n\nTu carisma está en máximos. Úsalo con intención.",
+        "relaciones": "Отношения сегодня ☀️\n\nЛучший момент для близости.\nДля того чтобы попросить о чём-то важном.\nДля сложных разговоров — ты сейчас более убедительная.\n\nТвоя харизма на максимуме. Используй с намерением.",
 
-        "ritual": "Noche hoy ☀️\n\nPuedes dormir menos y sentirte bien.\nBaila, muévete, estate con gente.\n\n🌿 Come: salmón, espinacas, frutos rojos, almendras\n💪 Muévete: fuerza, running, baile libre",
+        "ritual": "Вечер сегодня ☀️\n\nМожешь спать меньше и чувствовать себя хорошо.\nТанцуй, двигайся, будь с людьми.\n\n🌿 Питание: лосось, шпинат, ягоды, миндаль\n💪 Движение: силовые, бег, свободный танец",
 
-        "autoestima": "Autoestima hoy ☀️\n\nEstá en su punto más alto ahora.\n\nEs el mejor momento para hacer cosas que requieren valentía.\nTu voz, tu presencia, tu seguridad — todo está disponible hoy.",
+        "autoestima": "Самооценка сегодня ☀️\n\nНа своём пике прямо сейчас.\n\nЛучший момент делать то что требует смелости.\nТвой голос, твоё присутствие, твоя уверенность — всё доступно сегодня.",
 
-        "warning": "⚠️ Puedes dar demasiado de ti misma — tiempo, energía, atención. Después del verano viene el otoño. Guarda algo para ti.",
+        "warning": "⚠️ Можешь отдать слишком много себя — время, энергию, внимание. После лета приходит осень. Оставь что-то для себя.",
 
-        "response_emotional": "Tiene todo el sentido ☀️\n\nEstás en tu verano interior. Día {day}.\n\nEres la versión más magnética de ti misma ahora mismo. Sin esfuerzo.\n\nEres la protagonista. Úsalo 👑",
+        "response_emotional": "Это имеет смысл ☀️\n\nТы в своём внутреннем лете. День {day}.\n\nТы самая магнетичная версия себя прямо сейчас. Без усилий.\n\nТы главная героиня. Используй это 👑",
     },
     {
-        "key": "lutea",
-        "name": "Lútea",
-        "season": "Otoño interior",
+        "key": "лютеиновая",
+        "name": "Лютеиновая",
+        "season": "Внутренняя осень",
         "emoji": "🍂",
         "days": (17, 28),
 
         "morning_1": [
-            "Día {day} 🍂 Tu otoño interior.\nHoy la energía va hacia adentro. Es tiempo de profundidad.",
-            "Día {day} 🍂 Otoño interior.\nNo es mal día — es un día diferente. Más lento. Más honesto.",
-            "Día {day} 🍂 Tu otoño está aquí.\nTermina, reflexiona, suelta. Eso es todo lo que necesitas hoy.",
+            "День {day} 🍂 Внутренняя осень.\nСегодня энергия идёт внутрь. Время глубины.",
+            "День {day} 🍂 Осень внутри.\nЭто не плохой день — это другой день. Медленнее. Честнее.",
+            "День {day} 🍂 Твоя осень здесь.\nЗавершай, осмысляй, отпускай. Это всё что нужно сегодня.",
         ],
         "morning_3": [
-            "Confío en mi proceso. Todo lo que sembré está creciendo, aunque aún no lo vea. 💜",
-            "Me permito sentir todo lo que hay. Mis emociones son mi profundidad. 💜",
-            "Estoy segura incluso en los momentos más oscuros. El invierno viene después — y luego la primavera. 💜",
+            "Доверяю своему процессу. Всё что я посеяла растёт — даже если я пока не вижу. 💜",
+            "Позволяю себе чувствовать всё что есть. Мои эмоции — это моя глубина. 💜",
+            "Я в безопасности даже в самые тёмные моменты. После зимы всегда весна. 💜",
         ],
 
-        "cuerpo": "Cuerpo hoy 🍂\n\nLa progesterona domina.\nLa energía va hacia adentro.\nEres más perceptiva, más sensible, más profunda.\n\nNormal sentir:\n🍃 Emociones más profundas y reales\n🙏 Gratitud que se siente con el cuerpo\n💧 Lágrimas que llegan más fácil — y eso sana\n🫀 Corazón más suave y abierto\n🌙 Necesidad de sentido y propósito\n\n_Pongo la mano en el corazón. Me permito sentir todo lo que hay._\n\nEsto no es depresión. Es profundidad.",
+        "cuerpo": "Тело сегодня 🍂\n\nПрогестерон доминирует.\nЭнергия идёт внутрь.\nТы более восприимчивая, чувствительная, глубокая.\n\nНормально чувствовать:\n🍃 Эмоции которые становятся глубже\n🙏 Благодарность которую ощущаешь всем телом\n💧 Слёзы которые приходят легче — и это исцеляет\n🫀 Сердце которое становится мягче\n🌙 Потребность в смысле и глубине\n\n_Кладу руку на сердце. Позволяю себе чувствовать всё что есть._\n\nЭто не депрессия. Это глубина.",
 
-        "trabajo": "Trabajo hoy 🍂\n\nIdeal para terminar, editar, mejorar.\nNo empieces cosas nuevas — cierra lo pendiente.\nTu ojo para los detalles está en su punto más alto.\n\n⚠️ Si sientes que no eres suficiente o que todo se derrumba — espera. Es la progesterona. En unos días esto pasa.",
+        "trabajo": "Работа сегодня 🍂\n\nИдеально для завершения, редактуры, улучшения.\nНе начинай новое — закрой то что ждёт.\nТвой глаз на детали сейчас на пике.\n\n⚠️ Если кажется что ты недостаточно хороша или всё рушится — подожди. Это прогестерон. Через несколько дней это пройдёт.",
 
-        "relaciones": "Relaciones hoy 🍂\n\nEvita conversaciones difíciles en los días 24-28.\nPuedes percibir todo más intenso de lo que es.\n\nSi algo te molestó — escríbelo.\nHabla de eso después de la menstruación.",
+        "relaciones": "Отношения сегодня 🍂\n\nИзбегай сложных разговоров в дни 24-28.\nМожешь воспринимать всё острее чем есть на самом деле.\n\nЕсли что-то задело — запиши.\nПоговори об этом после менструации.",
 
-        "ritual": "Noche hoy 🍂\n\nTu cuerpo pide más sueño. Acuéstate más temprano.\nEscribe en un diario — en esta fase sale lo más honesto de ti.\n\n🌿 Come: batata, nueces, manzana con canela, avena\n💪 Muévete: pilates, yoga, caminatas largas en silencio",
+        "ritual": "Вечер сегодня 🍂\n\nТело просит больше сна. Ложись раньше.\nПиши в дневник — в эту фазу выходит самое честное что в тебе есть.\n\n🌿 Питание: батат, грецкие орехи, яблоко с корицей, овсянка\n💪 Движение: пилатес, йога, долгие прогулки в тишине",
 
-        "autoestima": "Autoestima hoy 🍂\n\nPuede fluctuar en estos días.\nEso es normal y hormonal.\n\nLo que sientes sobre ti misma en los días 22-26 no es la verdad completa.\nEspera unos días. La perspectiva regresa.\n\n⚠️ No tomes decisiones sobre ti misma en estos días.",
+        "autoestima": "Самооценка сегодня 🍂\n\nМожет колебаться в эти дни.\nЭто нормально и гормонально.\n\nТо что ты думаешь о себе в дни 22-26 — не вся правда.\nПодожди несколько дней. Перспектива вернётся.\n\n⚠️ Не принимай решений о себе в эти дни.",
 
-        "warning": "⚠️ Si en los días 22-26 sientes que no eres suficiente o que todo se derrumba — espera. No es un diagnóstico. Es la progesterona. En unos días esto pasa.",
+        "warning": "⚠️ Если в дни 22-26 кажется что ты недостаточна или всё рушится — подожди. Это не диагноз. Это прогестерон. Через несколько дней это пройдёт.",
 
-        "response_emotional": "Te escucho 🍂\n\nEstás en tu otoño interior. Día {day}.\n\nLas emociones profundas, las lágrimas, querer ir más despacio — todo tiene sentido ahora.\n\nEsto no es depresión. Es profundidad.\nEl otoño antes del invierno. Y el invierno antes de la primavera 🌱\n\n⚠️ Si sientes que no eres suficiente ahora — espera unos días. No es la verdad.",
+        "response_emotional": "Слышу тебя 🍂\n\nТы в своей внутренней осени. День {day}.\n\nГлубокие эмоции, слёзы, желание замедлиться — всё это имеет смысл сейчас.\n\nЭто не депрессия. Это глубина.\nОсень перед зимой. А зима перед весной 🌱\n\n⚠️ Если кажется что ты недостаточна — подожди несколько дней. Это не правда.",
     }
 ]
 
 # ============================================================
-# FUNCIONES
+# ФУНКЦИИ
 # ============================================================
 
 def get_phase(last_period_str):
@@ -226,20 +223,20 @@ def get_forecast(last_period_str):
     try:
         last_period = datetime.strptime(last_period_str, "%d/%m/%Y").date()
         today = date.today()
-        lines = ["🔮 Tus próximos 5 días\n"]
-        labels = ["Mañana", "En 2 días", "En 3 días", "En 4 días", "En 5 días"]
+        lines = ["🔮 Твои следующие 5 дней\n"]
+        labels = ["Завтра", "Через 2 дня", "Через 3 дня", "Через 4 дня", "Через 5 дней"]
         for i in range(1, 6):
             future = today + timedelta(days=i)
             diff = (future - last_period).days
             cycle_day = (diff % 28) + 1
             for phase in phases:
                 if phase["days"][0] <= cycle_day <= phase["days"][1]:
-                    lines.append(f"{phase['emoji']} {labels[i-1]} — Día {cycle_day} · {phase['name']}")
+                    lines.append(f"{phase['emoji']} {labels[i-1]} — День {cycle_day} · {phase['name']}")
                     break
-        lines.append("\n_Planifica tu semana según tu ciclo 💜_")
+        lines.append("\n_Планируй неделю по своему циклу 💜_")
         return "\n".join(lines)
     except:
-        return "No pude calcular el pronóstico."
+        return "Не смогла рассчитать прогноз."
 
 def send_reply(text):
     resp = MessagingResponse()
@@ -247,7 +244,6 @@ def send_reply(text):
     return str(resp)
 
 def morning_message(phase, cycle_day):
-    """Genera los 3 mensajes de mañana concatenados con separadores"""
     msg1 = random.choice(phase["morning_1"]).format(day=cycle_day)
     msg2 = random.choice(humor[phase["key"]])
     msg3 = random.choice(phase["morning_3"])
@@ -255,7 +251,7 @@ def morning_message(phase, cycle_day):
     return f"{msg1}\n\n😄 {msg2}\n\n{msg3}\n\n_🌙 {wisdom_msg}_"
 
 # ============================================================
-# LÓGICA PRINCIPAL
+# ОСНОВНАЯ ЛОГИКА
 # ============================================================
 
 def handle_message(phone, text):
@@ -264,94 +260,93 @@ def handle_message(phone, text):
 
     user = users.get(phone, {"name": "", "fecha_periodo": "", "state": "new"})
 
-    # ── NUEVO ──────────────────────────────────────────────────
+    # НОВЫЙ
     if user["state"] == "new":
         users[phone] = {"name": "", "fecha_periodo": "", "state": "asking_name"}
-        return "Hola, soy *Taina* 🌙\nTu compañera de ciclo consciente.\n\nEstoy aquí para ayudarte a entender tu cuerpo, tus emociones y tu energía — según el momento de tu ciclo.\n\nCómo te llamas 💜\n\n_Taina es una guía de bienestar. No reemplaza la consulta médica._"
+        return "Привет, я *Тайна* 🌙\nТвоя подруга по осознанному циклу.\n\nЯ здесь чтобы помочь тебе понять своё тело, эмоции и энергию — в зависимости от твоего цикла.\n\nКак тебя зовут 💜\n\n_Тайна — это про заботу о себе, не медицинская консультация._"
 
-    # ── NOMBRE ─────────────────────────────────────────────────
+    # ИМЯ
     if user["state"] == "asking_name":
         name = text.capitalize()
         users[phone] = {"name": name, "fecha_periodo": "", "state": "asking_date"}
-        return f"Hola {name} 💜\n\nPara acompañarte necesito saber una cosa:\n\nCuándo comenzó tu último período\n\nEscríbeme la fecha así:\n*15/03/2025*"
+        return f"Привет {name} 💜\n\nЧтобы быть рядом мне нужно знать одну вещь:\n\nКогда начались твои последние месячные\n\nНапиши мне дату вот так:\n*15/03/2025*"
 
-    # ── FECHA ──────────────────────────────────────────────────
+    # ДАТА
     if user["state"] == "asking_date":
         parsed = parse_date(text)
         if not parsed:
-            return "Hmm, no entendí la fecha 😊\n\nEscríbela así: *15/03/2025*\n(día/mes/año)"
+            return "Хм, не поняла дату 😊\n\nНапиши вот так: *15/03/2025*\n(день/месяц/год)"
         phase, cycle_day = get_phase(parsed)
         if not phase:
-            return "No pude calcular tu ciclo. Intenta con el formato: *15/03/2025*"
+            return "Не смогла рассчитать цикл. Попробуй формат: *15/03/2025*"
         users[phone] = {"name": user["name"], "fecha_periodo": parsed, "state": "active"}
-        return f"Perfecto {user['name']} 🌙\n\nCalculé tu ciclo ✨\nHoy estás en el *día {cycle_day}* — *{phase['name']}*\n{phase['emoji']} {phase['season']}\n\n{morning_message(phase, cycle_day)}\n\nEscribe *hoy* para tu plan completo o solo cuéntame cómo te sientes 💜"
+        return f"Отлично {user['name']} 🌙\n\nРассчитала твой цикл ✨\nСегодня у тебя *день {cycle_day}* — *{phase['name']}*\n{phase['emoji']} {phase['season']}\n\n{morning_message(phase, cycle_day)}\n\nНапиши *сегодня* для полного плана или просто расскажи как ты себя чувствуешь 💜"
 
-    # ── ACTIVO ─────────────────────────────────────────────────
+    # АКТИВНА
     if user["state"] == "active":
         phase, cycle_day = get_phase(user["fecha_periodo"])
         name = user["name"]
         if not phase:
-            return "Hubo un error. Escríbeme tu fecha: *15/03/2025*"
+            return "Что-то пошло не так. Напиши свою дату: *15/03/2025*"
 
-        # RESET
-        if any(w in text_lower for w in ["me bajó", "empecé", "llegó", "nuevo ciclo", "me llegó", "empezó", "me vino", "bajó"]):
+        # СБРОС ЦИКЛА
+        if any(w in text_lower for w in ["началось", "пришли", "начались", "новый цикл", "месячные", "пришло"]):
             today_str = date.today().strftime("%d/%m/%Y")
             users[phone] = {"name": name, "fecha_periodo": today_str, "state": "active"}
-            return f"Gracias por avisarme {name} 🌑\n\nReinicié tu ciclo desde hoy.\nDía 1 — Menstruación, invierno interior.\n\nDescansa. No te exijas.\nTu cuerpo hace un trabajo sagrado 💜\n\n😄 {random.choice(humor['menstruacion'])}"
+            return f"Спасибо что сказала {name} 🌑\n\nОбнулила твой цикл с сегодня.\nДень 1 — Менструация, внутренняя зима.\n\nОтдыхай. Не требуй от себя многого.\nТвоё тело делает священную работу 💜\n\n😄 {random.choice(humor['менструация'])}"
 
-        # BUENOS DÍAS — muestra mensaje de mañana
-        if any(w in text_lower for w in ["buenos días", "buen día", "buenas", "morning", "mañana"]):
+        # ДОБРОЕ УТРО
+        if any(w in text_lower for w in ["доброе утро", "привет", "хай", "утро", "добрый"]):
             return morning_message(phase, cycle_day)
 
-        # HOY — plan completo pero corto
-        if any(w in text_lower for w in ["hoy", "plan", "todo", "completo", "qué hago"]):
-            return f"{phase['emoji']} Día {cycle_day} — {phase['name']}\n_{phase['season']}_\n\nPara ver cada parte escribe:\n\n🫀 *cuerpo*\n🧠 *trabajo*\n💑 *relaciones*\n🕯️ *ritual*\n👑 *autoestima*\n🔮 *proximos*\n\n{random.choice(phase['morning_3'])}"
+        # СЕГОДНЯ — план
+        if any(w in text_lower for w in ["сегодня", "план", "всё", "все", "что делать"]):
+            return f"{phase['emoji']} День {cycle_day} — {phase['name']}\n_{phase['season']}_\n\nЧтобы увидеть каждую часть напиши:\n\n🫀 *тело*\n🧠 *работа*\n💑 *отношения*\n🕯️ *вечер*\n👑 *самооценка*\n🔮 *прогноз*\n\n{random.choice(phase['morning_3'])}"
 
-        # CUERPO
-        if any(w in text_lower for w in ["cuerpo", "emocion", "física", "fisico", "siento físicamente"]):
+        # ТЕЛО
+        if any(w in text_lower for w in ["тело", "эмоции", "физически", "чувствую телом"]):
             return phase["cuerpo"]
 
-        # TRABAJO
-        if any(w in text_lower for w in ["trabajo", "decisión", "decision", "proyecto", "negocios", "firmar"]):
+        # РАБОТА
+        if any(w in text_lower for w in ["работа", "решение", "проект", "бизнес", "подписать"]):
             return phase["trabajo"]
 
-        # RELACIONES
-        if any(w in text_lower for w in ["relacion", "pareja", "sexo", "intimidad", "amor", "pareja"]):
+        # ОТНОШЕНИЯ
+        if any(w in text_lower for w in ["отношения", "партнёр", "партнер", "секс", "близость", "любовь"]):
             return phase["relaciones"]
 
-        # RITUAL / NOCHE
-        if any(w in text_lower for w in ["ritual", "noche", "dormir", "sueño", "descanso", "comida", "deporte"]):
+        # ВЕЧЕР / РИТУАЛ
+        if any(w in text_lower for w in ["вечер", "ночь", "спать", "сон", "отдых", "еда", "спорт"]):
             return phase["ritual"]
 
-        # AUTOESTIMA
-        if any(w in text_lower for w in ["autoestima", "seguridad", "confianza", "fea", "no me gusto", "me odio"]):
+        # САМООЦЕНКА
+        if any(w in text_lower for w in ["самооценка", "уверенность", "некрасивая", "не нравлюсь", "ненавижу себя"]):
             return phase["autoestima"]
 
-        # PRÓXIMOS DÍAS
-        if any(w in text_lower for w in ["proximos", "próximos", "semana", "pronóstico", "pronostico"]):
+        # ПРОГНОЗ
+        if any(w in text_lower for w in ["прогноз", "следующие", "неделя", "впереди"]):
             return get_forecast(user["fecha_periodo"])
 
-        # FASE ACTUAL
-        if any(w in text_lower for w in ["fase", "ciclo", "día", "dia", "qué fase", "en qué"]):
-            return f"Hoy estás en el día {cycle_day} {name} {phase['emoji']}\n\n*{phase['name']} — {phase['season']}*\n\nEscribe *hoy* para ver qué hacer 💜"
+        # ФАЗА
+        if any(w in text_lower for w in ["фаза", "цикл", "день", "какая фаза"]):
+            return f"Сегодня у тебя день {cycle_day} {name} {phase['emoji']}\n\n*{phase['name']} — {phase['season']}*\n\nНапиши *сегодня* чтобы увидеть что делать 💜"
 
-        # AYUDA
-        if any(w in text_lower for w in ["ayuda", "help", "hola", "hi", "menu", "menú"]):
-            return f"Hola {name} {phase['emoji']}\n\nDía {cycle_day} — {phase['name']}\n\nEscríbeme lo que necesitas:\n\n🫀 *cuerpo* — tu cuerpo hoy\n🧠 *trabajo* — decisiones y proyectos\n💑 *relaciones* — pareja e intimidad\n🕯️ *ritual* — noche y descanso\n👑 *autoestima* — cómo estás contigo\n🔮 *proximos* — próximos 5 días\n📅 *me bajó* — reiniciar ciclo\n\nO simplemente cuéntame cómo te sientes 💜"
+        # ПОМОЩЬ
+        if any(w in text_lower for w in ["помощь", "помоги", "меню", "что умеешь"]):
+            return f"Привет {name} {phase['emoji']}\n\nДень {cycle_day} — {phase['name']}\n\nНапиши мне что нужно:\n\n🫀 *тело* — твоё тело сегодня\n🧠 *работа* — решения и проекты\n💑 *отношения* — партнёр и близость\n🕯️ *вечер* — ночь и отдых\n👑 *самооценка* — как ты с собой\n🔮 *прогноз* — следующие 5 дней\n📅 *началось* — обнулить цикл\n\nИли просто расскажи как ты себя чувствуешь 💜"
 
-        # RESPUESTA EMOCIONAL
+        # ЭМОЦИОНАЛЬНЫЙ ОТВЕТ
         emotional_words = [
-            "triste", "lloro", "llorando", "cansada", "agotada", "ansiosa",
-            "ansiedad", "mal", "horrible", "irritada", "enojada", "depre",
-            "no puedo", "todo mal", "confundida", "rara", "sola",
-            "frustrada", "bloqueada", "vacía", "vacia", "plana",
-            "feliz", "bien", "contenta", "motivada", "energía", "increíble"
+            "грустно", "плачу", "устала", "тревога", "плохо", "ужасно",
+            "раздражена", "злюсь", "не могу", "всё плохо", "запуталась",
+            "странно", "одна", "обидно", "заблокирована", "пусто",
+            "хорошо", "счастлива", "мотивация", "энергия", "отлично"
         ]
         if any(w in text_lower for w in emotional_words):
             return phase["response_emotional"].format(day=cycle_day) + f"\n\n{phase['warning']}"
 
-        # DEFAULT — responde como si fuera un mensaje de mañana
-        return f"{phase['emoji']} Día {cycle_day} — {phase['name']}\n\n{random.choice(phase['morning_1']).format(day=cycle_day)}\n\n😄 {random.choice(humor[phase['key']])}\n\nEscribe *hoy* para ver tu plan o cuéntame cómo te sientes 💜"
+        # DEFAULT
+        return f"{phase['emoji']} День {cycle_day} — {phase['name']}\n\n{random.choice(phase['morning_1']).format(day=cycle_day)}\n\n😄 {random.choice(humor[phase['key']])}\n\nНапиши *сегодня* или просто расскажи как ты себя чувствуешь 💜"
 
 # ============================================================
 # WEBHOOK
@@ -366,7 +361,7 @@ def whatsapp_webhook():
 
 @app.route("/", methods=["GET"])
 def index():
-    return "Taina esta activa 🌙"
+    return "Тайна активна 🌙"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
